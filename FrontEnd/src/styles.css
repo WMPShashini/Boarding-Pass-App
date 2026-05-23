@@ -1,0 +1,42 @@
+:root{--bg:#f5f7fb;--card:#fff;--accent:#0366d6}
+body{font-family:system-ui,Segoe UI,Roboto,Arial;background:var(--bg);margin:0}
+.app header{display:flex;justify-content:space-between;align-items:center;padding:16px}
+.controls button{margin-left:8px}
+.cards{display:flex;gap:12px;padding:16px}
+.card{background:var(--card);padding:12px;border-radius:8px;box-shadow:0 1px 4px rgba(0,0,0,.06);cursor:pointer;display:flex;justify-content:space-between;min-width:180px}
+.boarding{padding:16px}
+.boarding-pass{background:#fff;padding:16px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.scanner-area{padding:16px}
+.hint{color:#666}
+
+/* Scanning overlay */
+.scan-overlay{position:relative;width:320px;height:240px;margin-top:12px}
+.scan-frame{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.scan-frame .scan-corners{position:absolute;inset:8px;border-radius:12px;box-shadow:0 0 0 2px rgba(3,102,214,0.08) inset}
+.scan-line{position:absolute;left:12px;right:12px;height:2px;background:linear-gradient(90deg, rgba(3,102,214,0.0), rgba(3,102,214,0.9), rgba(3,102,214,0.0));animation:scanMove 2s linear infinite}
+.scan-hint{position:absolute;bottom:-26px;font-size:12px;color:#444}
+
+@keyframes scanMove{0%{transform:translateY(-90px)}50%{transform:translateY(90px)}100%{transform:translateY(-90px)}}
+
+/* Connection overlay */
+.connection-overlay{position:fixed;left:0;top:0;right:0;bottom:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);z-index:60}
+.connection-card{background:linear-gradient(135deg,#0366d6,#2aa0ff);color:white;padding:20px 28px;border-radius:12px;display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 8px 30px rgba(3,102,214,0.3)}
+.connecting .spinner{width:36px;height:36px;border-radius:50%;border:4px solid rgba(255,255,255,0.25);border-top-color:white;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.connected svg{display:block;margin-bottom:4px}
+
+/* Boarding pass enhanced */
+.boarding-pass.enhanced{display:flex;gap:16px;background:linear-gradient(90deg,#fff,#f7fbff);padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(2,6,23,0.06);align-items:center}
+.bp-left{background:#0366d6;color:white;padding:12px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:120px}
+.bp-code{font-size:28px;font-weight:700}
+.bp-name{font-size:13px;margin-top:6px}
+.bp-right{flex:1}
+.bp-flight{font-size:18px;font-weight:600;color:#023e8a}
+.bp-meta{color:#444;margin-top:6px}
+.bp-issued{font-size:12px;color:#666;margin-top:8px}
+
+@media (max-width: 768px) {
+  .card {
+    flex-direction: column;
+  }
+}
