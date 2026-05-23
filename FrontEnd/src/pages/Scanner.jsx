@@ -3,7 +3,7 @@ import { QRCodeCanvas } from "qrcode.react";
 const Scanner = () => {
 
   // IMPORTANT: must be reachable from PHONE
-  const qrValue = "http://192.168.66.197:5173/scan";
+  const qrValue = "http://192.168.40.197:5173/scan";
 
   return (
     <div style={{ textAlign: "center", marginTop: "60px" }}>

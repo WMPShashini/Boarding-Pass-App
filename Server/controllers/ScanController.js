@@ -30,7 +30,7 @@ const getRandomCountry = async (req, res) => {
     res.json({
       country: random.name,
       image: random.image,
-      message: `Welcome ${random.name}`
+      message: `${random.name} - Welcome to destination`
     });
 
   } catch (err) {

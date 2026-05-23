@@ -7,7 +7,7 @@ const ScanPage = () => {
 
   useEffect(() => {
     const getCountry = async () => {
-      const res = await axios.get("http://192.168.66.197:5000/api/scan");
+      const res = await axios.get("http://192.168.40.197:5000/api/scan");
       // redirect inside phone app
       navigate(`/boarding/${res.data.country}`);
     };

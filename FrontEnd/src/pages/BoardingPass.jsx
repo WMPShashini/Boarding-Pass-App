@@ -1,50 +1,82 @@
 import { useParams } from "react-router-dom";
 
 const countryData = {
-  London: {
+  "United Kingdom": {
+    city: "London",
     flag: "🇬🇧",
     color: "#1e3a8a",
     airport: "LHR",
     flight: "BA 1509",
     gate: "G12",
     seat: "A1",
-    class: "Business"
+    class: "Business",
+    watermark:
+      "https://images.unsplash.com/photo-1674738689581-cdba855a5790?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fFVuaXRlZCUyMEtpbmdkb20lMjBMb25kb258ZW58MHx8MHx8fDA%3D?auto=format&fit=crop&w=2500&q=40"
   },
-  India: {
-    flag: "🇮🇳",
-    color: "#f97316",
-    airport: "DEL",
-    flight: "AI 202",
-    gate: "B4",
-    seat: "C3",
-    class: "Economy"
+
+  "United States": {
+    city: "Las Vegas",
+    flag: "🇺🇸",
+    color: "#dc2626",
+    airport: "LAS",
+    flight: "UA 220",
+    gate: "B7",
+    seat: "D5",
+    class: "Economy",
+    watermark:
+      "https://images.unsplash.com/photo-1694855923511-cca12ccbd57c?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTF8fFVuaXRlZCUyMFN0YXRlcy1sYXMlMjB2ZWdhc3xlbnwwfHwwfHx8MA%3D%3D?auto=format&fit=crop&w=2500&q=40"
   },
-  "Sri Lanka": {
-    flag: "🇱🇰",
-    color: "#16a34a",
-    airport: "CMB",
-    flight: "UL 404",
-    gate: "A2",
-    seat: "J7",
-    class: "First Class"
+
+  Australia: {
+    city: "Sydney",
+    flag: "🇦🇺",
+    color: "#0ea5e9",
+    airport: "SYD",
+    flight: "QF 12",
+    gate: "A3",
+    seat: "F2",
+    class: "Business",
+    watermark:
+      "https://plus.unsplash.com/premium_photo-1697730247961-9066e1398257?w=60&auto=format&fit=crop&w=2500&q=40"
   },
+
+  "New Zealand": {
+    city: "Auckland",
+    flag: "🇳🇿",
+    color: "#22c55e",
+    airport: "AKL",
+    flight: "NZ 101",
+    gate: "C5",
+    seat: "B4",
+    class: "Economy",
+    watermark:
+      "https://images.unsplash.com/photo-1507699622108-4be3abd695ad?auto=format&fit=crop&w=2500&q=40"
+  },
+
+  Germany: {
+    city: "Frankfurt",
+    flag: "🇩🇪",
+    color: "#f59e0b",
+    airport: "FRA",
+    flight: "LH 760",
+    gate: "D2",
+    seat: "E6",
+    class: "Business",
+    watermark:
+      "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=2500&q=40"
+  },
+
   Japan: {
+    city: "Tokyo",
     flag: "🇯🇵",
     color: "#dc2626",
     airport: "HND",
     flight: "JL 707",
     gate: "D9",
     seat: "F5",
-    class: "Business"
-  },
-  France: {
-    flag: "🇫🇷",
-    color: "#2563eb",
-    airport: "CDG",
-    flight: "AF 888",
-    gate: "C1",
-    seat: "K2",
-    class: "Economy"
+    class: "Business",
+    watermark:
+      "https://images.unsplash.com/photo-1505069446780-4ef442b5207f?auto=format&fit=crop&w=2500&q=40"
   }
 };
 
@@ -52,10 +84,9 @@ const BoardingPass = () => {
   const { country } = useParams();
   const data = countryData[country];
 
-  // 🕒 REAL TIME DATE & TIME
   const now = new Date();
 
-  const currentDate = now.toLocaleDateString("en-GB"); // 23/05/2026
+  const currentDate = now.toLocaleDateString("en-GB");
   const boardingTime = now.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit"
@@ -70,21 +101,30 @@ const BoardingPass = () => {
   }
 
   return (
-    <div style={styles.page}>
+  <>
+    {/* FULL SCREEN WATERMARK */}
+    <div
+      style={{
+        ...styles.background,
+        backgroundImage: `url(${data.watermark})`
+      }}
+    />
 
-      {/* HEADER */}
+    {/* OVERLAY */}
+    <div style={styles.overlay}></div>
+
+    {/* MAIN CONTENT */}
+    <div style={styles.page}>
       <h1 style={styles.welcome}>
-        Welcome {country} {data.flag}
+        {country} {data.flag} - Welcome to {data.city}
       </h1>
 
-      {/* CARD */}
       <div style={{ ...styles.card, borderLeft: `12px solid ${data.color}` }}>
-
         {/* LEFT */}
         <div style={styles.left}>
           <p style={styles.smallText}>BOARDING PASS</p>
 
-          <h2 style={styles.city}>{country}</h2>
+          <h2 style={styles.city}>{data.city}</h2>
 
           <p style={styles.label}>Boarding Time</p>
           <h3>{boardingTime}</h3>
@@ -112,42 +152,69 @@ const BoardingPass = () => {
 
           <div style={styles.barcode}></div>
         </div>
-
       </div>
     </div>
-  );
+  </>
+);
 };
 
 const styles = {
-  page: {
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    background: "linear-gradient(135deg,#dbeafe,#fce7f3)",
-    padding: "10px"
-  },
+page: {
+  minHeight: "100vh",
+  width: "100vw",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  alignItems: "stretch",
+  padding: "20px",
+  boxSizing: "border-box"
+},
 
-  welcome: {
-    fontSize: "24px",
-    marginBottom: "20px",
-    fontWeight: "bold"
-  },
+background: {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100vw",        // ✅ FIX (was 100vh ❌)
+  height: "100vh",
+  backgroundSize: "cover",  // ✅ better full-screen look
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundColor: "#373232",
+  zIndex: -2
+},
 
-  card: {
-    width: "100%",
-    maxWidth: "750px",
-    display: "flex",
-    background: "#fff",
-    borderRadius: "20px",
-    boxShadow: "0 15px 35px rgba(0,0,0,0.2)",
-    overflow: "hidden"
-  },
+overlay: {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100vw",
+  height: "100vh",
+  background: "rgba(255,255,255,0.75)",
+  zIndex: -1
+},
+
+welcome: {
+  fontSize: "36px",
+  fontWeight: "bold",
+  zIndex: 1,
+  marginTop: "100px", 
+},
+
+card: {
+  width: "100%",
+  maxWidth: "100%",
+  height: "100%",
+  display: "flex",
+  background: "rgba(255,255,255,0.9)",
+  borderRadius: "2px",
+  boxShadow: "none",
+  overflow: "hidden",
+  zIndex: 1,  // ✅ ensure no top spacing
+},
 
   left: {
     flex: 2,
-    padding: "20px"
+    padding: "20px",
   },
 
   right: {
