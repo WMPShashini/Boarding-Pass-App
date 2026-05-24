@@ -82,7 +82,7 @@ const countryData = {
 
 const BoardingPass = () => {
   const { country } = useParams();
-  const data = countryData[country];
+  const data = countryData[country?.trim()];
 
   const now = new Date();
 
