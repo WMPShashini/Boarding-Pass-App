@@ -11,30 +11,34 @@ const getRandomCountry = async (req, res) => {
     }
 
     // reset if all used
-    if (state.usedCountries.length === countries.length) {
+    if (state.usedCountries.length >= countries.length) {
       state.usedCountries = [];
     }
 
-    // filter available countries
     const available = countries.filter(
       c => !state.usedCountries.includes(c.name)
     );
 
-    // pick random
+    // 🔥 FIX: safety check
+    if (available.length === 0) {
+      return res.status(400).json({
+        error: "No countries available"
+      });
+    }
+
     const random = available[Math.floor(Math.random() * available.length)];
 
-    // update used list
     state.usedCountries.push(random.name);
     await state.save();
 
-    res.json({
+    return res.json({
       country: random.name,
       image: random.image,
       message: `${random.name} - Welcome to destination`
     });
 
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };
 

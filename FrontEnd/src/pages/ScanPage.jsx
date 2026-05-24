@@ -9,11 +9,9 @@ const ScanPage = () => {
     const getCountry = async () => {
       try {
         const res = await axios.get(
-          "http://192.168.43.197:5000/api/scan",
-          {
-            timeout: 5000 // prevents hanging
-          }
-        );
+  "https://attractive-strength-production-23be.up.railway.app/api/scan",
+  { timeout: 5000 }
+);
 
         console.log("API RESPONSE:", res.data);
 
